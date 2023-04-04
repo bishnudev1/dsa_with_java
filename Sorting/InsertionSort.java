@@ -1,4 +1,4 @@
-public class SelectionSort{
+public class InsertionSort{
     public static void main(String[] args){
 
         int[] arr = {9,2,6,1,4};
@@ -7,17 +7,15 @@ public class SelectionSort{
 
     }
     static void sort(int[] A){
-           for(int i=0;i<(A.length-1);i++){
-            int min = i;
-            for(int j=i;j<(A.length);j++){
-                if(A[min] > A[j]){
-                    min = j;
+           for(int i=1;i<(A.length);i++){
+                int temp = A[i];
+                int j = i -1 ;
+                while(j>=0 && A[j] > temp){
+                    A[j+1] = A[j];
+                    j--;
                 }
+                A[j+1] = temp;
             }
-        int temp = A[i];
-        A[i] = A[min];
-        A[min] = temp;
-        }
     }
 
     static void printArray(int[] A){
@@ -31,7 +29,9 @@ public class SelectionSort{
 
 Time Complexity: O(n^2)
 
-Advantages: Good for small sets
+Advantages:
+    1. Lesser steps than Bubble Sort
+    2. Best case O(n) compared to Selection Sort which is O(n^2)
 
 Disadvantages: Very time consuming for big data sets
 
