@@ -1,6 +1,6 @@
 import java.util.*;
 
-public class DFS{
+public class BFS{
     public static void main(String[] args){
         Graph _graph = new Graph(5);
 
@@ -14,10 +14,10 @@ public class DFS{
         _graph.addEdge(1,2);
 
         //_graph.print();
-        _graph.depthFirstSearch(4);
+
+        _graph.breadthFirstSearch(3);
     }
 }
-
 
 class Node{
     String data;
@@ -66,34 +66,32 @@ class Graph{
         }
     }
 
-    void depthFirstSearch(int src){
+    void breadthFirstSearch(int src){
+        Queue<Integer> queue = new LinkedList<>();
         boolean[] visited = new boolean[graphList.length];
-        helperDFS(src, visited);
-    }
 
+        queue.offer(src);
+        visited[src] = true;
 
-    void helperDFS(int src, boolean[] visited){
-        if(visited[src]) return;
-        
-        else{
-            visited[src] = true;
-            System.out.println("Just visited -> " + nodes.get(src).data);
-        }
+        while(queue.size() != 0){
+            src = queue.poll();
+            System.out.println(nodes.get(src).data + " = visited");
 
-        for(int i=0;i<graphList[src].length;i++){
-            if(graphList[src][i] == 1){
-                helperDFS(i,visited);
+            for(int i=0;i<graphList[src].length;i++){
+                if(graphList[src][i] == 1 && !visited[i]){
+                    queue.offer(i);
+                    visited[i] = true;
+                }
             }
         }
-        return;
     }
 
 }
 
 /*
- Depth First Search
-    1. Pick a route, keep going.
-    2. If you reach a dead end, or an already visited node, backtrack to previous node with unvisited previous adjacent neighbors.
-    3. More popular for games and puzzles
-
+Breadth First Search
+    1. Traverse a graph level by level
+    2. Utilizes a Queue
+    3. Better if destination is on average close to start
+    4. Siblings are visited before children
 */
